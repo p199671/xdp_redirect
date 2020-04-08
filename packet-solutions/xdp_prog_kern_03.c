@@ -156,8 +156,8 @@ int xdp_redirect_func(struct xdp_md *ctx)
 	struct ethhdr *eth;
 	int eth_type;
 	int action = XDP_PASS;
-	unsigned char dst[ETH_ALEN] = { /* TODO: put your values here */ };
-	unsigned ifindex = 0/* TODO: put your values here */;
+	unsigned char dst[ETH_ALEN] = {};
+	unsigned ifindex = 10;
 
 	/* These keep track of the next header type and iterator pointer */
 	nh.pos = data;
@@ -185,7 +185,7 @@ int xdp_redirect_map_func(struct xdp_md *ctx)
 	struct ethhdr *eth;
 	int eth_type;
 	int action = XDP_PASS;
-	unsigned char *dst;
+//	unsigned char *dst;
 
 	/* These keep track of the next header type and iterator pointer */
 	nh.pos = data;
@@ -196,12 +196,12 @@ int xdp_redirect_map_func(struct xdp_md *ctx)
 		goto out;
 
 	/* Do we know where to redirect this packet? */
-	dst = bpf_map_lookup_elem(&redirect_params, eth->h_source);
-	if (!dst)
-		goto out;
+//	dst = bpf_map_lookup_elem(&redirect_params, eth->h_source);
+//	if (!dst)
+//		goto out;
 
 	/* Set a proper destination address */
-	memcpy(eth->h_dest, dst, ETH_ALEN);
+//	memcpy(eth->h_dest, dst, ETH_ALEN);
 	action = bpf_redirect_map(&tx_port, 0, 0);
 
 out:
