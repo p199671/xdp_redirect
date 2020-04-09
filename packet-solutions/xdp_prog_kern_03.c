@@ -157,7 +157,7 @@ int xdp_redirect_func(struct xdp_md *ctx)
 	int eth_type;
 	int action = XDP_PASS;
 	unsigned char dst[ETH_ALEN] = {};
-	unsigned ifindex = 10;
+	unsigned ifindex = nil;
 
 	/* These keep track of the next header type and iterator pointer */
 	nh.pos = data;
