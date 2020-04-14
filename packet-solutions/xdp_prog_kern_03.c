@@ -157,7 +157,7 @@ int xdp_redirect_func(struct xdp_md *ctx)
 	int eth_type;
 	int action = XDP_PASS;
 	unsigned char dst[ETH_ALEN] = {};
-	unsigned ifindex = 0;
+	unsigned ifindex = nil;
 
 	/* These keep track of the next header type and iterator pointer */
 	nh.pos = data;
@@ -172,7 +172,7 @@ int xdp_redirect_func(struct xdp_md *ctx)
 	action = bpf_redirect(ifindex, 0);
 
 out:
-	return xdp_stats_record_action(ctx, action);
+	return action;
 }
 
 /* Solution to packet03/assignment-3 */
@@ -205,7 +205,7 @@ int xdp_redirect_map_func(struct xdp_md *ctx)
 	action = bpf_redirect_map(&tx_port, 0, 0);
 
 out:
-	return xdp_stats_record_action(ctx, action);
+	return action;
 }
 
 #define AF_INET 2

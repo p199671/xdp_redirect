@@ -38,11 +38,11 @@ static const struct option_wrapper long_options[] = {
 	{{"redirect-dev",         required_argument,	NULL, 'r' },
 	 "Redirect to device <ifname>", "<ifname>", true},
 
-	{{"src-mac", required_argument, NULL, 'L' },
-	 "Source MAC address of <dev>", "<mac>", true },
+//	{{"src-mac", required_argument, NULL, 'L' },
+//	 "Source MAC address of <dev>", "<mac>", true },
 
-	{{"dest-mac", required_argument, NULL, 'R' },
-	 "Destination MAC address of <redirect-dev>", "<mac>", true },
+//	{{"dest-mac", required_argument, NULL, 'R' },
+//	 "Destination MAC address of <redirect-dev>", "<mac>", true },
 
 	{{"quiet",       no_argument,		NULL, 'q' },
 	 "Quiet mode (no output)"},
@@ -137,7 +137,7 @@ int main(int argc, char **argv)
 		return EXIT_FAIL_OPTION;
 	}
 
-	if (parse_mac(cfg.src_mac, src) < 0) {
+/*	if (parse_mac(cfg.src_mac, src) < 0) {
 		fprintf(stderr, "ERR: can't parse mac address %s\n", cfg.src_mac);
 		return EXIT_FAIL_OPTION;
 	}
@@ -146,7 +146,7 @@ int main(int argc, char **argv)
 		fprintf(stderr, "ERR: can't parse mac address %s\n", cfg.dest_mac);
 		return EXIT_FAIL_OPTION;
 	}
-
+*/
 	/* Open the tx_port map corresponding to the cfg.ifname interface */
 	map_fd = open_bpf_map_file(pin_dir, "tx_port", NULL);
 	if (map_fd < 0) {
@@ -162,16 +162,16 @@ int main(int argc, char **argv)
 		printf("redirect from ifnum=%d to ifnum=%d\n", cfg.ifindex, cfg.redirect_ifindex);
 
 		/* Open the redirect_params map */
-		map_fd = open_bpf_map_file(pin_dir, "redirect_params", NULL);
-		if (map_fd < 0) {
-			return EXIT_FAIL_BPF;
-		}
+//		map_fd = open_bpf_map_file(pin_dir, "redirect_params", NULL);
+//		if (map_fd < 0) {
+//			return EXIT_FAIL_BPF;
+//		}
 
 		/* Setup the mapping containing MAC addresses */
-		if (write_iface_params(map_fd, src, dest) < 0) {
-			fprintf(stderr, "can't write iface params\n");
-			return 1;
-		}
+//		if (write_iface_params(map_fd, src, dest) < 0) {
+//			fprintf(stderr, "can't write iface params\n");
+//			return 1;
+//		}
 	} else {
 		/* setup 1-1 mapping for the dynamic router */
 		for (i = 1; i < 256; ++i)
